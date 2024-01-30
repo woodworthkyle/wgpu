@@ -2181,7 +2181,9 @@ impl Adapter {
         desc: &DeviceDescriptor,
         trace_path: Option<&std::path::Path>,
     ) -> impl Future<Output = Result<(Device, Queue), RequestDeviceError>> + WasmNotSend {
+        println!("request_device...");
         let context = Arc::clone(&self.context);
+        println!("request_device...0");
         let device = DynContext::adapter_request_device(
             &*self.context,
             &self.id,
@@ -2189,6 +2191,7 @@ impl Adapter {
             desc,
             trace_path,
         );
+        println!("request_device...1");
         async move {
             device.await.map(
                 |DeviceRequest {
