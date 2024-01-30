@@ -2086,10 +2086,13 @@ where
         desc: &DeviceDescriptor,
         trace_dir: Option<&std::path::Path>,
     ) -> Pin<AdapterRequestDeviceFuture> {
+        println!("adapter_request_device...");
         let adapter = <T::AdapterId>::from(*adapter);
+        println!("adapter_request_device...0");
         let adapter_data = downcast_ref(adapter_data);
+        println!("adapter_request_device...1");
         let future = Context::adapter_request_device(self, &adapter, adapter_data, desc, trace_dir);
-
+        println!("adapter_request_device...2");
         Box::pin(async move {
             let (device_id, device_data, queue_id, queue_data) = future.await?;
             Ok(DeviceRequest {
