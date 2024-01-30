@@ -151,6 +151,7 @@ impl<A: HalApi> Device<A> {
         trace_path: Option<&std::path::Path>,
         instance_flags: wgt::InstanceFlags,
     ) -> Result<Self, CreateDeviceError> {
+        println!("Device...");
         #[cfg(not(feature = "trace"))]
         if let Some(_) = trace_path {
             log::error!("Feature 'trace' is not enabled");
@@ -179,21 +180,25 @@ impl<A: HalApi> Device<A> {
         };
         pending_writes.activate();
         unsafe {
+            println!("Device...unsafe - pending_writes 0");
             pending_writes
                 .command_encoder
                 .transition_buffers(iter::once(hal::BufferBarrier {
                     buffer: &zero_buffer,
                     usage: hal::BufferUses::empty()..hal::BufferUses::COPY_DST,
                 }));
+            println!("Device...unsafe - pending_writes 1");
             pending_writes
                 .command_encoder
                 .clear_buffer(&zero_buffer, 0..ZERO_BUFFER_SIZE);
+            println!("Device...unsafe - pending_writes 2");
             pending_writes
                 .command_encoder
                 .transition_buffers(iter::once(hal::BufferBarrier {
                     buffer: &zero_buffer,
                     usage: hal::BufferUses::COPY_DST..hal::BufferUses::COPY_SRC,
                 }));
+            println!("Device...unsafe - pending_writes 3");
         }
 
         let life_guard = LifeGuard::new("<device>");
