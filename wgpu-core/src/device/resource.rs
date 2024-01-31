@@ -188,9 +188,9 @@ impl<A: HalApi> Device<A> {
                     usage: hal::BufferUses::empty()..hal::BufferUses::COPY_DST,
                 }));
             println!("Device...unsafe - pending_writes 1");
-            pending_writes
-                .command_encoder
-                .clear_buffer(&zero_buffer, 0..ZERO_BUFFER_SIZE);
+            //pending_writes
+            //    .command_encoder
+            //    .clear_buffer(&zero_buffer, 0..ZERO_BUFFER_SIZE);
             println!("Device...unsafe - pending_writes 2");
             pending_writes
                 .command_encoder
