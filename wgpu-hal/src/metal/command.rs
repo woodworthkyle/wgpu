@@ -25,7 +25,9 @@ impl Default for super::CommandState {
 
 impl super::CommandEncoder {
     fn enter_blit(&mut self) -> &metal::BlitCommandEncoderRef {
+        println!("enter_blit...");
         if self.state.blit.is_none() {
+            println!("blit encoder not found...creating one...");
             debug_assert!(self.state.render.is_none() && self.state.compute.is_none());
             let cmd_buf = self.raw_cmd_buf.as_ref().unwrap();
 
@@ -51,6 +53,7 @@ impl super::CommandEncoder {
                 .contains(TimestampQuerySupport::ON_BLIT_ENCODER);
 
             if !self.state.pending_timer_queries.is_empty() && !supports_sample_counters_in_buffer {
+                println!("enter_blit...1");
                 objc::rc::autoreleasepool(|| {
                     let descriptor = metal::BlitPassDescriptor::new();
                     let mut last_query = None;
@@ -99,6 +102,7 @@ impl super::CommandEncoder {
             // UNTESTED:
             // If the above described issue with empty blit encoder applies to `sample_counters_in_buffer` as well, we should use the same workaround instead!
             for (set, index) in self.state.pending_timer_queries.drain(..) {
+                println!("enter_blit...2");
                 debug_assert!(supports_sample_counters_in_buffer);
                 encoder.sample_counters_in_buffer(
                     set.counter_sample_buffer.as_ref().unwrap(),
@@ -107,6 +111,7 @@ impl super::CommandEncoder {
                 )
             }
         }
+        println!("enter_blit...return");
         self.state.blit.as_ref().unwrap()
     }
 
