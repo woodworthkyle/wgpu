@@ -239,13 +239,8 @@ impl crate::CommandEncoder<super::Api> for super::CommandEncoder {
     }
 
     unsafe fn clear_buffer(&mut self, buffer: &super::Buffer, range: crate::MemoryRange) {
-        println!("clear_buffer...");
-        println!("clear_buffer...start = {}", range.start);
-        println!("clear_buffer...end = {}", range.end);
         let encoder = self.enter_blit();
-        println!("clear_buffer...0");
         encoder.fill_buffer(&buffer.raw, conv::map_range(&range), 0);
-        println!("clear_buffer...1");
     }
 
     unsafe fn copy_buffer_to_buffer<T>(
