@@ -147,6 +147,7 @@ block = { version = "0.1", optional = true }
 metal = "0.27.0"
 objc = "0.2.5"
 core-graphics-types = "0.1"
+core-graphics = "0.23.2"
 
 [target.'cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))'.dependencies]
 wasm-bindgen = "0.2.87"
