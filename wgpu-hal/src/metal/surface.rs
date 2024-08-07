@@ -127,7 +127,7 @@ impl super::Surface {
             let new_layer: *mut Object = msg_send![class, new];
             let frame: CGRect = msg_send![main_layer, bounds];
             let () = msg_send![new_layer, setFrame: frame];
-            let () = msg_send![new_layer, setBackgroundColor: CGColor.rgb(1.0, 0.0, 0.0, 1.0)];
+            let () = msg_send![new_layer, setBackgroundColor: CGColor::rgb(1.0, 0.0, 0.0, 1.0)];
             #[cfg(target_os = "ios")]
             {
                 println!("Adding Metal Layer");
