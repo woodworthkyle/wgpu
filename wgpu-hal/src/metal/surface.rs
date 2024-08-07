@@ -127,12 +127,12 @@ impl super::Surface {
             let new_layer: *mut Object = msg_send![class, new];
             let frame: CGRect = msg_send![main_layer, bounds];
             let () = msg_send![new_layer, setFrame: frame];
-            let () = msg_send![new_layer, setBackgroundColor: CGColor::rgb(1.0, 0.0, 0.0, 1.0)];
+            let () = msg_send![new_layer, setBackgroundColor: CGColor::rgb(0.0, 1.0, 0.0, 1.0)];
             #[cfg(target_os = "ios")]
             {
                 println!("Adding Metal Layer");
                 // Unlike NSView, UIView does not allow to replace main layer.
-                //let () = msg_send![main_layer, addSublayer: new_layer];
+                let () = msg_send![main_layer, addSublayer: new_layer];
                 
                 // On iOS, "from_view" may be called before the application initialization is complete,
                 // `msg_send![view, window]` and `msg_send![window, screen]` will get null.
