@@ -132,7 +132,8 @@ impl super::Surface {
             {
                 println!("Adding Metal Layer");
                 // Unlike NSView, UIView does not allow to replace main layer.
-                let () = msg_send![main_layer, addSublayer: new_layer];
+                //let () = msg_send![main_layer, addSublayer: new_layer];
+                
                 // On iOS, "from_view" may be called before the application initialization is complete,
                 // `msg_send![view, window]` and `msg_send![window, screen]` will get null.
                 let screen: *mut Object = msg_send![class!(UIScreen), mainScreen];
